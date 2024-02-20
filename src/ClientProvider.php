@@ -36,7 +36,7 @@ class ClientProvider extends AbstractServiceProvider
 
     protected function getAgent(SettingsRepositoryInterface $settings, ExtensionManager $extensions): Agent
     {
-        $userId = 1;
+        $userId = $settings->get('muhammedsaidckr-gemini.user_prompt') ?? 1;
 
         /** @var \Flarum\User\UserRepository $users */
         $users = $this->container->make(UserRepository::class);

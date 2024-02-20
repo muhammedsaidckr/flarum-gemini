@@ -6,11 +6,11 @@ app.initializers.add('muhammedsaidckr-gemini', () => {
   extend(PostUser.prototype, 'view', function (view) {
     const user = this.attrs.post.user();
 
-    if (!user || app.forum.attribute('geminiUserPromptId') !== user.id()) return;
+    if (!user || app.forum.attribute('GeminiUserPromptId') !== user.id()) return;
 
     view.children.push(
       <div className="UserPromo-badge">
-        <div className="badge">{app.forum.attribute('geminiBadgeText')}</div>
+        <div className="badge">{app.forum.attribute('GeminiBadgeText')}</div>
       </div>
     );
   })
