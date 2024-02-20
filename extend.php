@@ -34,7 +34,6 @@ return [
     (new Extend\Settings())
         ->default('muhammedsaidckr-gemini.model', 'gemini-pro')
         ->default('muhammedsaidckr-gemini.enable_on_discussion_started', true)
-        ->default('muhammedsaidckr-gemini.max_tokens', 100)
         ->default('muhammedsaidckr-gemini.user_prompt_badge_text', 'Assistant')
         ->default('muhammedsaidckr-gemini.user_prompt', 1)
         ->serializeToForum('GeminiUserPromptId', 'muhammedsaidckr-gemini.user_prompt')

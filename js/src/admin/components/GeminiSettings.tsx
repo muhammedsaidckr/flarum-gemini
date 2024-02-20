@@ -27,12 +27,6 @@ export default class GeminiSettings extends ExtensionPage {
               label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.model_label'),
             })}
             {this.buildSettingComponent({
-              setting: 'muhammedsaidckr-gemini.max_tokens',
-              type: 'number',
-              label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.max_tokens_label'),
-              default: 100,
-            })}
-            {this.buildSettingComponent({
               setting: 'muhammedsaidckr-gemini.user_prompt',
               type: 'text',
               label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.user_prompt_label'),
