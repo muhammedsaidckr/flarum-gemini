@@ -20,11 +20,6 @@ php flarum migrate
 php flarum cache:clear
 ```
 
-## References (demo)
-- [Ne Istersen Sor](https://neistersensor.com/)
-
-
-
 ## Links
 
 - [Packagist](https://packagist.org/packages/muhammedsaidckr/flarum-gemini)
