@@ -17,9 +17,8 @@ class Agent
 
     public function __construct(
         public readonly User $user,
-        protected ?Client    $client = null,
-    )
-    {
+        protected ?Client $client = null,
+    ) {
     }
 
 //    public function operational(): bool
@@ -41,23 +40,11 @@ class Agent
 
         $respond = $response->text();
 
-        if (empty($respond)) return;
+        if (empty($respond)) {
+            return;
+        }
 
         $userPrompt = $this->user->id;
-
-//        if (Str::startsWith($respond, 'FLAG: ')) {
-//            $flag = new Flag(
-//                Str::after($respond, 'FLAG: '),
-//                $discussion
-//            );
-//
-//            $flag();
-//        } else {
-//        $reply = new Reply(
-//            reply: $respond,
-//            shouldMention: $this->canMention,
-//            inReplyTo: $discussion
-//        );
 
         CommentPost::reply(
             discussionId: $discussion->id,
@@ -65,7 +52,6 @@ class Agent
             userId: $userPrompt,
             ipAddress: '127.0.0.1'
         )->save();
-//        }
     }
 
 }

@@ -52,7 +52,6 @@ class ClientProvider extends AbstractServiceProvider
             client: $client,
         );
 
-//        $agent->toggleMentioning($extensions->isEnabled('flarum-mentions'));
 
         return $agent;
     }
