@@ -4,11 +4,7 @@ namespace Msc\Gemini;
 
 use Flarum\Discussion\Discussion;
 use Flarum\Post\CommentPost;
-use Flarum\Post\Post;
-use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
-use Illuminate\Support\Arr;
-use Gemini;
 use Gemini\Client;
 
 class Agent
@@ -17,24 +13,15 @@ class Agent
 
     public function __construct(
         public readonly User $user,
-        protected ?Client $client = null,
-    ) {
+        protected ?Client    $client = null,
+    )
+    {
     }
-
-//    public function operational(): bool
-//    {
-//        return $this->client !== null;
-//    }
-//
-//    public
-//    function is(User $someone): bool
-//    {
-//        return $this->user->is($someone);
-//    }
 
     public function repliesTo(Discussion $discussion): void
     {
-        $content = $discussion->firstPost->content;
+        $content = $discussion->posts()->first()->content;
+        $title = $discussion->title;
 
         $response = $this->client->geminiPro()->generateContent($content);
 

@@ -22,6 +22,6 @@ class ReplyToPost
     public function handle(Started $event): void
     {
         // See https://docs.flarum.org/extend/backend-events.html for more information.
-        $this->queue->push(new ReplyJob($event->discussion), null, 'flarum');
+        $this->queue->push(new ReplyJob($event->discussion));
     }
 }

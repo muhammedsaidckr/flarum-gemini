@@ -14,6 +14,8 @@ namespace Msc\Gemini;
 use Flarum\Discussion\Event\Started;
 use Flarum\Extend;
 use Msc\Gemini\Listener\ReplyToPost;
+use Msc\Gemini\BindingsProvider;
+use Msc\Gemini\ClientProvider;
 
 return [
     (new Extend\Frontend('forum'))
