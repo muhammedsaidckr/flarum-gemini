@@ -34,7 +34,7 @@ return [
         ->listen(Started::class, ReplyToPost::class),
 
     (new Extend\Settings())
-        ->default('muhammedsaidckr-gemini.model', 'gemini-pro')
+        ->default('muhammedsaidckr-gemini.model', 'models/gemini-pro')
         ->default('muhammedsaidckr-gemini.enable_on_discussion_started', true)
         ->default('muhammedsaidckr-gemini.user_prompt_badge_text', 'Assistant')
         ->default('muhammedsaidckr-gemini.user_prompt', 1)

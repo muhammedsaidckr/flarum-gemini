@@ -22,7 +22,16 @@ export default class GeminiSettings extends ExtensionPage {
               setting: 'muhammedsaidckr-gemini.model',
               type: 'dropdown',
               options: {
-                'gemini-pro': 'gemini-pro'
+                'models/gemini-1.0-pro': 'gemini-1.0-pro',
+                'models/gemini-1.0-pro-001': 'gemini-1.0-pro-001',
+                'models/gemini-1.0-pro-latest': 'gemini-1.0-pro-latest',
+                'models/gemini-1.0-pro-vision-latest': 'gemini-1.0-pro-vision-latest',
+                'models/gemini-1.5-flash': 'gemini-1.5-flash',
+                'models/gemini-1.5-flash-001': 'gemini-1.5-flash-001',
+                'models/gemini-1.5-pro': 'gemini-1.5-pro',
+                'models/gemini-1.5-pro-001': 'gemini-1.5-pro-001',
+                'models/gemini-pro': 'gemini-pro',
+                'models/gemini-pro-vision': 'gemini-pro-vision',
               },
               label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.model_label'),
             })}

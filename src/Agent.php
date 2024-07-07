@@ -14,8 +14,10 @@ class Agent
     public function __construct(
         public readonly User $user,
         protected ?Client    $client = null,
+        string               $model = null,
     )
     {
+        $this->model = $model ?? 'gemini-1.5-flash';
     }
 
     public function repliesTo(Discussion $discussion): void
@@ -23,7 +25,7 @@ class Agent
         $content = $discussion->posts()->first()->content;
         $title = $discussion->title;
 
-        $response = $this->client->geminiPro()->generateContent($content);
+        $response = $this->client->generativeModel($this->model)->generateContent($content);
 
         $respond = $response->text();
 
