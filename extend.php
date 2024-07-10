@@ -38,6 +38,9 @@ return [
         ->default('muhammedsaidckr-gemini.enable_on_discussion_started', true)
         ->default('muhammedsaidckr-gemini.user_prompt_badge_text', 'Assistant')
         ->default('muhammedsaidckr-gemini.user_prompt', 1)
+        ->default('muhammedsaidckr-gemini.role', 'You are a forum user')
+        ->default('muhammedsaidckr-gemini.prompt',
+            'Write a arguable or thankfully opinion asking or arguing something about an answer that has talked about "[title]". Don\'t talk about what you would like or don\'t like. Speak in a close tone, like you are writing in a Tech Forum. Be random and unpredictable.')
         ->serializeToForum('GeminiUserPromptId', 'muhammedsaidckr-gemini.user_prompt')
         ->serializeToForum('GeminiBadgeText', 'muhammedsaidckr-gemini.user_prompt_badge_text'),
 ];

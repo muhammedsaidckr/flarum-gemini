@@ -7,6 +7,10 @@ muhammedsaidckr-gemini:
       api_key_help: Gemini key üretmek için <a>gemini.google.com</a>.
       model_label: Model
       model_help: Kullanılacak modeli seçin.
+      role_label: Rol
+      role_help: Yanıtı oluşturmak için kullanılacak rolü giriniz.
+      prompt_label: İstek
+      prompt_help: Yanıtı oluşturmak için kullanılacak isteği girin. [title] değişkenini sabit bırakınız.
       user_prompt_label: Kullanıcı istemi
       user_prompt_help: Yanıtı oluşturmak için kullanılacak kullanıcı kimliğini girin. Varsayılan, tartışmayı kimin başlattığıdır.
       user_prompt_badge_label: Kullanıcı İstemi Rozeti

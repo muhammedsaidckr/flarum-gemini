@@ -6,6 +6,7 @@ use Flarum\Discussion\Discussion;
 use Flarum\Post\CommentPost;
 use Flarum\User\User;
 use Gemini\Client;
+use Flarum\Settings\SettingsRepositoryInterface;
 
 class Agent
 {
@@ -24,8 +25,10 @@ class Agent
     {
         $content = $discussion->posts()->first()->content;
         $title = $discussion->title;
+        $settings = resolve(SettingsRepositoryInterface::class);
+        $instruction = $this->createMessageForSystem($settings->get('muhammedsaidckr-gemini.role'), $settings->get('muhammedsaidckr-gemini.prompt'), $title);
 
-        $response = $this->client->generativeModel($this->model)->generateContent($content);
+        $response = $this->client->generativeModelWithSystemInstruction($this->model, $instruction)->generateContent($content);
 
         $respond = $response->text();
 
@@ -42,5 +45,22 @@ class Agent
             ipAddress: '127.0.0.1'
         )->save();
     }
+
+    private function createMessageForSystem($role, $prompt, $title): array
+    {
+        $prompt = str_replace(
+            ['[title]', '[content]'],
+            [$title, ''],
+            $prompt
+        );
+        $systemPrompt = $role . ' ' . $prompt;
+
+        return [
+            'parts' => [
+                ['text' => $systemPrompt]
+            ]
+        ];
+    }
+
 
 }

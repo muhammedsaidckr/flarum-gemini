@@ -36,6 +36,19 @@ export default class GeminiSettings extends ExtensionPage {
               label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.model_label'),
             })}
             {this.buildSettingComponent({
+              setting: 'muhammedsaidckr-gemini.role',
+              type: 'text',
+              label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.role_label'),
+              help: app.translator.trans('muhammedsaidckr-gemini.admin.settings.role_help'),
+            })}
+            {/* new settings for prompt */}
+            {this.buildSettingComponent({
+              setting: 'muhammedsaidckr-gemini.prompt',
+              type: 'text',
+              label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.prompt_label'),
+              help: app.translator.trans('muhammedsaidckr-gemini.admin.settings.prompt_help'),
+            })}
+            {this.buildSettingComponent({
               setting: 'muhammedsaidckr-gemini.user_prompt',
               type: 'text',
               label: app.translator.trans('muhammedsaidckr-gemini.admin.settings.user_prompt_label'),

@@ -50,6 +50,7 @@ class ClientProvider extends AbstractServiceProvider
         $agent = new Agent(
             user: $user,
             client: $client,
+            model: $settings->get('muhammedsaidckr-gemini.model'),
         );
 
 
