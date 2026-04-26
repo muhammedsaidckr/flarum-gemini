@@ -1,6 +1,6 @@
-/// <reference types="mithril" />
 import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import type Mithril from 'mithril';
 export default class GeminiSettings extends ExtensionPage {
-    oninit(vnode: any): void;
+    oninit(vnode: Mithril.Vnode): void;
     content(): JSX.Element;
 }
