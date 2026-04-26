@@ -1,0 +1,11 @@
+name: Gemini PHP
+
+on: [workflow_dispatch, push, pull_request]
+
+jobs:
+  run:
+    uses: flarum/framework/.github/workflows/REUSABLE_backend.yml@main
+    with:
+      enable_backend_testing: true
+      php_versions: '["8.2", "8.3"]'
+      backend_directory: .
