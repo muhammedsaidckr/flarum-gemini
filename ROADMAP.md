@@ -2,16 +2,19 @@
 
 This document outlines the planned future developments for the Flarum Gemini extension.
 
-## 🟢 Short-Term (v1.2 - v1.3)
+## ✅ Completed
+*   **Gemini API Client v2.0 Upgrade**: Completed infrastructure upgrade to leverage 2.0 features (Grounding, System Instructions, Structured Output, etc.).
+
+## 🟢 Short-Term (v1.x - v2.0)
+*   **Contextual Memory expansion**: Increase the number of posts included in the context window and implement a "rolling window" for very long discussions.
+*   **Group/Permission Restrictions**: Allow administrators to restrict who can trigger AI replies based on Flarum user groups.
 *   **Multimodal Support**: Enable Gemini to "see" images and files attached to posts to provide more accurate replies.
 *   **Google Search Grounding**: Integrate Gemini's ability to search the web for real-time information to provide factual and up-to-date answers.
 *   **Prompt Library**: Provide a set of pre-defined system prompts (e.g., "Helpful Assistant", "Tech Critic", "Friendly Welcomer") in the Admin UI.
 *   **Improved AI User Selection**: A more user-friendly interface in the Admin panel to select the AI user, rather than entering a raw ID.
 *   **Markdown Formatting Improvements**: Better handling of code blocks and special Flarum formatting in AI responses.
 
-## 🟡 Medium-Term (v1.x - v2.0)
-*   **Contextual Memory expansion**: Increase the number of posts included in the context window and implement a "rolling window" for very long discussions.
-*   **Group/Permission Restrictions**: Allow administrators to restrict who can trigger AI replies based on Flarum user groups.
+## 🟡 Medium-Term (v2.x)
 *   **Integration with "Best Answer"**: Automatically mark AI replies as the "Best Answer" if they receive a certain number of likes or manual confirmation.
 *   **Custom AI Badges**: Allow different styling or badges for different AI "personalities" within the forum.
 *   **Localization Expansion**: Add more community-driven translations (e.g., German, Spanish, French).
