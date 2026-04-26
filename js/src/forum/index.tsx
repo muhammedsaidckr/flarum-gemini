@@ -4,7 +4,8 @@ import PostUser from 'flarum/forum/components/PostUser';
 
 app.initializers.add('muhammedsaidckr-gemini', () => {
   extend(PostUser.prototype, 'view', function (this: PostUser, view: any) {
-    const user = this.attrs.post.user();
+    const post = (this.attrs as any).post;
+    const user = post ? post.user() : null;
 
     if (!user || app.forum.attribute('GeminiUserPromptId') !== user.id()) return;
 
