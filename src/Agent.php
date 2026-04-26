@@ -14,21 +14,44 @@ class Agent
 
     public function __construct(
         public readonly User $user,
+        protected SettingsRepositoryInterface $settings,
         protected ?Client    $client = null,
         string               $model = null,
     )
     {
-        $this->model = $model ?? 'gemini-1.5-flash';
+        $this->model = $model ?? 'models/gemini-1.5-flash';
     }
 
     public function repliesTo(Discussion $discussion): void
     {
-        $content = $discussion->posts()->first()->content;
-        $title = $discussion->title;
-        $settings = resolve(SettingsRepositoryInterface::class);
-        $instruction = $this->createMessageForSystem($settings->get('muhammedsaidckr-gemini.role'), $settings->get('muhammedsaidckr-gemini.prompt'), $title);
+        if (!$this->client) {
+            return;
+        }
 
-        $response = $this->client->generativeModelWithSystemInstruction($this->model, $instruction)->generateContent($content);
+        $firstPost = $discussion->posts()->first();
+        $content = $firstPost->content;
+        $title = $discussion->title;
+
+        // Fetch context (last 5 posts)
+        $context = $discussion->posts()
+            ->where('type', 'comment')
+            ->orderBy('number', 'desc')
+            ->limit(5)
+            ->get()
+            ->reverse()
+            ->map(fn(CommentPost $post) => ($post->user ? $post->user->display_name : 'Guest') . ': ' . $post->content)
+            ->implode("\n---\n");
+
+        $instruction = $this->createMessageForSystem(
+            $this->settings->get('muhammedsaidckr-gemini.role'),
+            $this->settings->get('muhammedsaidckr-gemini.prompt'),
+            $title,
+            $firstPost->user ? $firstPost->user->display_name : 'Guest'
+        );
+
+        $promptContent = "Context of the discussion:\n" . $context . "\n\nNew post to reply to:\n" . $content;
+
+        $response = $this->client->generativeModelWithSystemInstruction($this->model, $instruction)->generateContent($promptContent);
 
         $respond = $response->text();
 
@@ -36,21 +59,23 @@ class Agent
             return;
         }
 
-        $userPrompt = $this->user->id;
+        $userId = $this->user->id;
 
         CommentPost::reply(
             discussionId: $discussion->id,
             content: $respond,
-            userId: $userPrompt,
-            ipAddress: '127.0.0.1'
+            userId: $userId,
+            ipAddress: null
         )->save();
     }
 
-    private function createMessageForSystem($role, $prompt, $title): array
+    private function createMessageForSystem($role, $prompt, $title, $authorName): array
     {
+        $forumTitle = $this->settings->get('forum_title');
+
         $prompt = str_replace(
-            ['[title]', '[content]'],
-            [$title, ''],
+            ['[title]', '[author_name]', '[forum_title]'],
+            [$title, $authorName, $forumTitle],
             $prompt
         );
         $systemPrompt = $role . ' ' . $prompt;
@@ -61,6 +86,4 @@ class Agent
             ]
         ];
     }
-
-
 }

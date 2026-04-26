@@ -12,8 +12,10 @@
 namespace Msc\Gemini;
 
 use Flarum\Discussion\Event\Started;
+use Flarum\Post\Event\Posted;
 use Flarum\Extend;
 use Msc\Gemini\Listener\ReplyToPost;
+use Msc\Gemini\Listener\ReplyToMention;
 use Msc\Gemini\BindingsProvider;
 use Msc\Gemini\ClientProvider;
 
@@ -31,10 +33,11 @@ return [
         ->register(ClientProvider::class),
 
     (new Extend\Event())
-        ->listen(Started::class, ReplyToPost::class),
+        ->listen(Started::class, ReplyToPost::class)
+        ->listen(Posted::class, ReplyToMention::class),
 
     (new Extend\Settings())
-        ->default('muhammedsaidckr-gemini.model', 'models/gemini-pro')
+        ->default('muhammedsaidckr-gemini.model', 'models/gemini-1.5-flash')
         ->default('muhammedsaidckr-gemini.enable_on_discussion_started', true)
         ->default('muhammedsaidckr-gemini.user_prompt_badge_text', 'Assistant')
         ->default('muhammedsaidckr-gemini.user_prompt', 1)

@@ -2,13 +2,13 @@
 
 namespace Msc\Gemini\Listener;
 
-use Flarum\Discussion\Event\Started;
+use Flarum\Post\Event\Posted;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Queue\Queue;
 use Msc\Gemini\Agent;
 use Msc\Gemini\Job\ReplyJob;
 
-class ReplyToPost
+class ReplyToMention
 {
     public function __construct(
         protected Agent $agent,
@@ -17,25 +17,28 @@ class ReplyToPost
     ) {
     }
 
-    /**
-     * @param  \Flarum\Discussion\Event\Started  $event
-     * @return void
-     */
-    public function handle(Started $event): void
+    public function handle(Posted $event): void
     {
-        if (!$this->settings->get('muhammedsaidckr-gemini.enable_on_discussion_started')) {
+        $post = $event->post;
+        $discussion = $post->discussion;
+
+        // Don't reply to self
+        if ($post->user_id === $this->agent->user->id) {
             return;
         }
 
+        // Check tags if enabled
         $enabledTags = json_decode($this->settings->get('muhammedsaidckr-gemini.enabled-tags') ?? '[]', true);
-
         if (!empty($enabledTags)) {
-            $discussionTags = $event->discussion->tags->pluck('id')->toArray();
+            $discussionTags = $discussion->tags->pluck('id')->toArray();
             if (empty(array_intersect($discussionTags, $enabledTags))) {
                 return;
             }
         }
 
-        $this->queue->push(new ReplyJob($event->discussion));
+        // Check for mention
+        if (str_contains($post->content, '@' . $this->agent->user->username)) {
+            $this->queue->push(new ReplyJob($discussion));
+        }
     }
 }

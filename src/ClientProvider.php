@@ -22,7 +22,6 @@ class ClientProvider extends AbstractServiceProvider
         $settings = $this->container->make(SettingsRepositoryInterface::class);
 
         $apiKey = $settings->get('muhammedsaidckr-gemini.api_key');
-        $organisation = $settings->get('muhammedsaidckr-gemini.openai-api-organisation');
 
         if ($apiKey) {
             $this->container->singleton(Client::class, fn() => Gemini::client($apiKey));
@@ -49,6 +48,7 @@ class ClientProvider extends AbstractServiceProvider
 
         $agent = new Agent(
             user: $user,
+            settings: $settings,
             client: $client,
             model: $settings->get('muhammedsaidckr-gemini.model'),
         );
