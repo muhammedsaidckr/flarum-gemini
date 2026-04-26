@@ -1,8 +1,8 @@
 import app from 'flarum/admin/app';
-import GeminiSettings from "./components/GeminiSettings";
+import GeminiSettings from './components/GeminiSettings';
 
 app.initializers.add('muhammedsaidckr-gemini', () => {
-  console.log('Hello, admin!')
+  console.log('Hello, admin!');
   app.extensionData
     .for('muhammedsaidckr-gemini')
     .registerPermission(
@@ -13,5 +13,6 @@ app.initializers.add('muhammedsaidckr-gemini', () => {
         allowGuest: false,
       },
       'start'
-    ).registerPage(GeminiSettings);
+    )
+    .registerPage(GeminiSettings);
 });

@@ -1,5 +1,5 @@
-import app from "flarum/admin/app";
-import ExtensionPage, {ExtensionPageAttrs} from 'flarum/admin/components/ExtensionPage';
+import app from 'flarum/admin/app';
+import ExtensionPage, { ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
 
 export default class GeminiSettings extends ExtensionPage {
   oninit(vnode) {
