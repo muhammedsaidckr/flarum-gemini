@@ -1,8 +1,9 @@
 import app from 'flarum/admin/app';
-import ExtensionPage, { ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import type Mithril from 'mithril';
 
 export default class GeminiSettings extends ExtensionPage {
-  oninit(vnode) {
+  oninit(vnode: Mithril.Vnode) {
     super.oninit(vnode);
     this.loading = false;
   }

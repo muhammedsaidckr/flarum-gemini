@@ -3,15 +3,17 @@ import { extend } from 'flarum/common/extend';
 import PostUser from 'flarum/forum/components/PostUser';
 
 app.initializers.add('muhammedsaidckr-gemini', () => {
-  extend(PostUser.prototype, 'view', function (view) {
+  extend(PostUser.prototype, 'view', function (this: PostUser, view: any) {
     const user = this.attrs.post.user();
 
     if (!user || app.forum.attribute('GeminiUserPromptId') !== user.id()) return;
 
-    view.children.push(
-      <div className="UserPromo-badge">
-        <div className="badge">{app.forum.attribute('GeminiBadgeText')}</div>
-      </div>
-    );
+    if (view && view.children && Array.isArray(view.children)) {
+      view.children.push(
+        <div className="UserPromo-badge">
+          <div className="badge">{app.forum.attribute('GeminiBadgeText')}</div>
+        </div>
+      );
+    }
   });
 });
