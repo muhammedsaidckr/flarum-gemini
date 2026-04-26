@@ -8,7 +8,7 @@
     "license": "MIT",
     "require": {
         "flarum/core": "^1.2.0",
-        "muhammedsaidckr/gemini-client": "^0.0.2"
+        "muhammedsaidckr/gemini-client": "^2.7.5"
     },
     "authors": [
         {

@@ -24,7 +24,10 @@ class ClientProvider extends AbstractServiceProvider
         $apiKey = $settings->get('muhammedsaidckr-gemini.api_key');
 
         if ($apiKey) {
-            $this->container->singleton(Client::class, fn() => Gemini::client($apiKey));
+            $this->container->singleton(Client::class, fn() => Gemini::factory()
+                ->withApiKey($apiKey)
+                ->withBaseUrl('https://generativelanguage.googleapis.com/v1beta')
+                ->make());
         }
 
         /** @var ExtensionManager $extensions */

@@ -7,6 +7,8 @@ use Flarum\Post\CommentPost;
 use Flarum\User\User;
 use Gemini\Client;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Gemini\Data\Content;
+use Gemini\Data\Part;
 
 class Agent
 {
@@ -51,7 +53,9 @@ class Agent
 
         $promptContent = "Context of the discussion:\n" . $context . "\n\nNew post to reply to:\n" . $content;
 
-        $response = $this->client->generativeModelWithSystemInstruction($this->model, $instruction)->generateContent($promptContent);
+        $response = $this->client->generativeModel($this->model)
+            ->withSystemInstruction($instruction)
+            ->generateContent($promptContent);
 
         $respond = $response->text();
 
@@ -69,7 +73,7 @@ class Agent
         )->save();
     }
 
-    private function createMessageForSystem($role, $prompt, $title, $authorName): array
+    private function createMessageForSystem($role, $prompt, $title, $authorName): Content
     {
         $forumTitle = $this->settings->get('forum_title');
 
@@ -80,10 +84,10 @@ class Agent
         );
         $systemPrompt = $role . ' ' . $prompt;
 
-        return [
-            'parts' => [
-                ['text' => $systemPrompt]
+        return new Content(
+            parts: [
+                new Part(text: $systemPrompt)
             ]
-        ];
+        );
     }
 }
