@@ -4,6 +4,7 @@
     "version": "0.0.0",
     "devDependencies": {
         "@flarum/prettier-config": "^1.0.0",
+        "@types/jquery": "^3.5.13",
         "@types/mithril": "^2.0.10",
         "dayjs": "^1.11.0",
         "flarum-tsconfig": "^1.0.2",
